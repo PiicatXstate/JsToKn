@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JS AST 在线解析器</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        #editorContainer, #output {
+            flex: 1;
+            height: calc(100vh - 40px);
+            margin: 0 10px;
+        }
+        #editor {
+            width: 100%;
+            height: 100%;
+            border: 2px solid #ccc;
+            font-family: monospace;
+        }
+        #output {
+            white-space: pre-wrap;
+            font-family: monospace;
+            overflow: auto;
+            padding: 10px;
+            border: 2px solid #ccc;
+            background: #f8f8f8;
+        }
+    </style>
+    <!-- 引入 CodeMirror 编辑器 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.0/mode/javascript/javascript.min.js"></script>
+    <script src="acorn.min.js"></script>
+</head>
+<body>
+    <!-- 代码编辑器 -->
+    <div id="editorContainer">
+        <textarea id="editor"></textarea>
+    </div>
+    
+    <!-- AST 显示区域 -->
+    <div id="output"></div>
+
+    <script>
+        // 初始化代码编辑器
+        const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+            mode: 'javascript',
+            lineNumbers: true,
+            theme: 'default',
+            viewportMargin: Infinity,
+            value: '// 输入 JavaScript 代码...\nfunction example() {\n  return "Hello World";\n}'
+        });
+
+        const output = document.getElementById('output');
+        
+        // 实时解析函数
+        function parseCode() {
+            const code = editor.getValue();
+            try {
+                const ast = acorn.parse(code, {
+                    ecmaVersion: 2022,
+                    locations: false
+                });
+                output.textContent = JSON.stringify(ast['body'][0],null,2);
+            } catch (error) {
+                output.textContent = `解析错误: ${error.message}`;
+            }
+        }
+
+        // 添加输入监听（500ms 防抖）
+        let timeout;
+        editor.on('change', () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(parseCode, 500);
+        });
+
+        // 初始解析
+        parseCode();
+    </script>
+</body>
+</html>

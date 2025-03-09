@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- 引入 Acorn 解析器 -->
+  <script src="acorn.min.js"></script>
+  <!-- 引入 Astring 代码生成器 -->
+  <script src="astring.min.js"></script>
+</head>
+<body>
+<script>
+  // 1. 用 Acorn 解析 JS 到 AST
+  let ast = acorn.parse(`start(()=>{
+  console.log('666')
+  console.log('666')
+})`, {
+    ecmaVersion: 2022,
+    locations: true
+  });
+  console.log(ast)
+  // 打印 AST 对象（可选，用于调试）
+  let b = JSON.stringify(ast, (key, value) => {
+    return key === 'start' || key === 'end' ? undefined : value;
+  }, 2);
+
+  // 2. 用 Astring 将 AST 转回 JS
+  const code = astring.generate(ast);
+  console.log(code); // 输出: 变量__3F_ = 0;
+</script>
+</body>
+</html>

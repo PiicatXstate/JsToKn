@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<link rel="stylesheet" href="codemirror.css">
+		<link rel="stylesheet" href="material.css">
+		<title>Editor</title>
+		<style>
+			html, body {
+			    margin: 0;
+			    padding: 0;
+			    width: 100%;
+			    height: 100%;
+			    overflow: hidden;
+			}
+			textarea {
+				width: 100%;
+			    height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="width: 100%;height: 100%;" id="block">
+			<textarea id="text"></textarea>
+		</div>
+	</body>
+	<script src="codemirror.js"></script>
+	<script src="javascript.js"></script>
+	<script src="InterCore.js"></script>
+	<script src="ConvKernel.js"></script>
+	<script type="module" >
+		// 加载JSON
+		fetch('./convert.json')
+		.then((response) => response.json())
+		.then((json) => window.localStorage.setItem("json",JSON.stringify(json)));
+		let convert = window.localStorage.getItem("json");
+		convert = JSON.parse(convert);
+
+		// 创建Editor
+		var myTextArea = document.getElementById('text');
+		var editor = CodeMirror.fromTextArea(myTextArea, {
+		    lineNumbers: true,
+		    mode: 'javascript',
+		    theme: 'material'
+		});
+		editor.on('change', () => {
+			var data = editor.getValue().split('\n');
+			console.log(interLua(data));
+		});
+	</script>
+</html>

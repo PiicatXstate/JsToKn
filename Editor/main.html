@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EDITOR</title>
+    <link rel="stylesheet" href="css/codemirror.css">
+	<link rel="stylesheet" href="css/material.css">
+    <style>
+        .editor{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            overflow: hidden;
+        }
+        .codediv{
+            position: absolute;
+            border: 0px solid rgb(41, 40, 40);
+            background-color: rgb(19, 19, 19);
+            border-radius: 10px;
+            overflow: hidden;
+            resize: both;
+        }
+        .threader:active {
+            cursor: grabbing; 
+        }
+        .editor:active {
+            cursor: grabbing; 
+        }
+        .threader{
+            position: absolute;
+            left: 10px;
+            top: 4px;
+            width: 155px;
+            -webkit-user-drag: none;
+        }
+        .code{
+            position: absolute;
+            width: calc(100% - 24px);
+            height: calc(100% - 52px);
+            background-color: black;
+            border: 2px solid rgb(41, 40, 40);
+            border-radius: 10px;
+            top: 40px;
+            left: 12px;
+            overflow: hidden;
+        }
+        .menu{
+            position: absolute;
+            overflow: hidden;
+            display: none;
+        }
+        .option{
+            width: 100px;
+            height: 25px;
+            background-color: rgb(41, 40, 40);
+            border: 1.5px solid rgb(41, 40, 40);
+            border-radius: 4px;
+        }
+        .word{
+            color: white;
+            font-size: 12px;
+            position: absolute;
+            top: -7.5px;
+            right: 23px;
+            
+        }
+    </style>
+</head>
+
+<body style="margin: 0%;">
+    <div class="editor" id="editor">
+    </div>
+    <ul class="menu">
+        <li class="option"><p class="word">创建新的线程</p></li>
+    </ul>
+
+
+
+
+    <script src="js/codemirror.js"></script>
+	<script src="js/javascript.js"></script>
+	<script src="js/InterCore.js"></script>
+	<script src="js/ConvKernel.js"></script>
+    <script src="js/acorn.min.js"></script>
+    <script src="js/astring.min.js"></script>
+    <script>
+        // 随机数生成
+        function generateRandomString(length = 10) {
+            const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            let randomString = "";
+
+            for (let i = 0; i < length; i++) {
+                randomString += charset[Math.floor(Math.random() * charset.length)];
+            }
+
+            return randomString;
+        }
+
+        // 绝对坐标到相对坐标
+        function absolute(pos){
+            let cinema = JSON.parse(window.sessionStorage.getItem('cinema'))
+            return [pos[0]-cinema[0],pos[1]-cinema[1]]
+        }
+        // 相对坐标到绝对坐标
+        function relative(pos){
+            let cinema = JSON.parse(window.sessionStorage.getItem('cinema'))
+            return [pos[0]+cinema[0],pos[1]+cinema[1]]
+        }
+        // 关键数据初始化
+        window.sessionStorage.setItem('cinema',JSON.stringify([0,0]))
+        if(window.localStorage.getItem('data') == null){
+            window.localStorage.setItem('data',JSON.stringify({}));
+        }
+
+        // 总体拖拽监听
+        const bg = document.getElementById('editor');
+
+        bg.addEventListener('mousedown', () => {
+            if (event.target === bg) {
+                window.sessionStorage.setItem('runment', true);
+                window.sessionStorage.setItem('movetime', 1);
+            }
+        });
+
+        bg.addEventListener('mouseup', () => {
+            if (event.target === bg) {
+                window.sessionStorage.setItem('runment', false);
+            }
+        });
+
+        // 大小改变监听
+        function codediv(){
+            const buttons = document.querySelectorAll('.codediv');
+            buttons.forEach(button => {
+
+                const resizeObserver = new ResizeObserver(() => {
+                    let num = 'codediv' + window.sessionStorage.getItem('movenum');
+                    let editor = document.getElementById(num);
+                    
+                    let data = JSON.parse(window.localStorage.getItem('data'))
+                    let h = window.getComputedStyle(button,null)
+                    data[button.id.substring(7,button.id.length)]['width'] = h.width
+                    data[button.id.substring(7,button.id.length)]['height'] = h.height
+                    window.localStorage.setItem('data',JSON.stringify(data));
+                })
+                resizeObserver.observe(button)
+            });
+        }
+
+        // 点击放下事件监听
+        function addEventListenersToButtons() {
+            const buttons = document.querySelectorAll('.threader');
+
+            buttons.forEach(button => {
+                button.addEventListener('mousedown', () => {
+                    window.sessionStorage.setItem('movement', true);
+                    window.sessionStorage.setItem('movenum', button.id);
+                    window.sessionStorage.setItem('movetime', 1);
+                });
+
+                button.addEventListener('mouseup', () => {
+                    window.sessionStorage.setItem('movement', false);
+                });
+
+            });
+        }
+
+        // 加载内存数据
+        let data114 = JSON.parse(window.localStorage.getItem('data'));
+        for(let a1 in data114){
+            let editor3 = document.getElementById('editor')
+            let data = JSON.parse(window.localStorage.getItem('data'));
+            let num2 = a1;
+            const codediv = document.createElement('div');
+            codediv.className = 'codediv';
+            codediv.id = 'codediv' + num2;
+            codediv.style.left = data114[a1]['position'][0] +'px'
+            codediv.style.top = data114[a1]['position'][1] + 'px'
+            codediv.style.width = data114[a1]['width'];
+            codediv.style.height = data114[a1]['height'];
+
+            const img = document.createElement('img');
+            img.src = 'img/THREADER.svg';
+            img.className = 'threader';
+            img.id = num2;
+            const codeDiv = document.createElement('div');
+            codeDiv.className = 'code';
+            const textarea = document.createElement('textarea');
+            textarea.id = 'area' + num2;
+            textarea.innerHTML = data114[a1]['code']
+            codeDiv.appendChild(textarea);
+
+            codediv.appendChild(img);
+            codediv.appendChild(codeDiv);
+            editor3.appendChild(codediv);
+            let area = document.getElementById('area' + num2);
+            let editor514 = CodeMirror.fromTextArea(area, {
+                lineNumbers: true,
+                mode: 'javascript',
+                theme: 'material'
+            });
+            editor514.on('change', () => {
+                let data = JSON.parse(window.localStorage.getItem('data'));
+                data[num2]['code'] = editor514.getValue();
+                window.localStorage.setItem('data',JSON.stringify(data))
+                ConvKernel(editor514.getValue())
+            });
+        }
+
+        addEventListenersToButtons();
+        const observer = new MutationObserver(addEventListenersToButtons);
+        const config = { childList: true, subtree: true };
+        observer.observe(document.body, config);
+
+        codediv();
+        const observer2 = new MutationObserver(codediv);
+        const config2 = { childList: true, subtree: true };
+        observer2.observe(document.body, config2);
+
+
+        document.onmousemove = (event) => {
+            const { clientX, clientY } = event;
+
+            // 线程拖动
+            let num = 'codediv' + window.sessionStorage.getItem('movenum');
+            let editor = document.getElementById(num);
+            if(JSON.parse(window.sessionStorage.getItem('movement'))){
+                if(window.sessionStorage.getItem('movetime') == 1){
+                    window.sessionStorage.setItem('moveMouseX',clientX);
+                    window.sessionStorage.setItem('moveMouseY',clientY);
+                    let editor2 = window.getComputedStyle(editor,null)
+                    window.sessionStorage.setItem('moveDivX',editor2.left.substring(0,editor2.left.length-2));
+                    window.sessionStorage.setItem('moveDivY',editor2.top.substring(0,editor2.top.length-2));
+                    window.sessionStorage.setItem('movetime',0);
+                }else{
+                    
+                    let moveMouseX = Number(window.sessionStorage.getItem('moveMouseX'));
+                    let moveMouseY = Number(window.sessionStorage.getItem('moveMouseY'));
+                    let moveDivX = Number(window.sessionStorage.getItem('moveDivX'));
+                    let moveDivY = Number(window.sessionStorage.getItem('moveDivY'));
+                    editor.style.left = (moveDivX + clientX - moveMouseX) + 'px';
+                    editor.style.top = (moveDivY + clientY - moveMouseY) + 'px';
+                    let data = JSON.parse(window.localStorage.getItem('data'))
+                    data[window.sessionStorage.getItem('movenum')]['position'] = absolute([moveDivX + clientX - moveMouseX,moveDivY + clientY - moveMouseY])
+                    window.localStorage.setItem('data',JSON.stringify(data));
+                }
+            }
+
+            // 总体拖动 
+            if(JSON.parse(window.sessionStorage.getItem('runment'))){
+                if(window.sessionStorage.getItem('movetime') == 1){
+                    window.sessionStorage.setItem('moveMouseX',clientX);
+                    window.sessionStorage.setItem('moveMouseY',clientY);
+                    window.sessionStorage.setItem('movetime',0);
+                }else{
+                    let cinema = JSON.parse(window.sessionStorage.getItem('cinema'))
+                    let moveMouseX = Number(window.sessionStorage.getItem('moveMouseX'));
+                    let moveMouseY = Number(window.sessionStorage.getItem('moveMouseY'));
+                    window.sessionStorage.setItem('cinema',JSON.stringify([cinema[0] - (moveMouseX - clientX),cinema[1] - (moveMouseY - clientY)]));
+                    window.sessionStorage.setItem('moveMouseX',clientX);
+                    window.sessionStorage.setItem('moveMouseY',clientY);
+                    let code114 = document.getElementsByClassName('codediv')
+                    for(let code514 of code114){
+                        let code114514 = window.getComputedStyle(code514,null)
+                        let data = JSON.parse(window.localStorage.getItem('data'))[code514.id.substring(7,code514.id.length)]['position']
+                        code514.style.left = relative(data)[0] + 'px'
+                        code514.style.top = relative(data)[1] + 'px'
+                    }
+                }
+            }
+
+        };
+
+        // 创建新的线程 Ctrl + O
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.key.toLowerCase() === 'o') {
+                event.preventDefault();
+                let editor3 = document.getElementById('editor')
+                let data = JSON.parse(window.localStorage.getItem('data'));
+                let num2 = generateRandomString();
+                const codediv = document.createElement('div');
+                codediv.className = 'codediv';
+                codediv.id = 'codediv' + num2;
+                codediv.style.width = '300px';
+                codediv.style.height = '200px';
+                codediv.style.left = relative([50,50])[0] +'px'
+                codediv.style.top = relative([50,50])[1] + 'px'
+                const img = document.createElement('img');
+                img.src = 'img/THREADER.svg';
+                img.className = 'threader';
+                img.id = num2;
+                const codeDiv = document.createElement('div');
+                codeDiv.className = 'code';
+                const textarea = document.createElement('textarea');
+                textarea.id = 'area' + num2;
+                codeDiv.appendChild(textarea);
+
+                codediv.appendChild(img);
+                codediv.appendChild(codeDiv);
+
+                data[num2] = {
+                    'style':'THREADER',
+                    'position':[50,50],
+                    'width':'300px',
+                    'height':'200px',
+                    'code':''
+                }
+                window.localStorage.setItem('data',JSON.stringify(data));
+                // 将codediv添加到容器中
+                editor3.appendChild(codediv);
+
+                let area = document.getElementById('area' + num2);
+                var editor = CodeMirror.fromTextArea(area, {
+                    lineNumbers: true,
+                    mode: 'javascript',
+                    theme: 'material'
+                });
+                editor.on('change', () => {
+                    data[num2]['code'] = editor.getValue();
+                    window.localStorage.setItem('data',JSON.stringify(data))
+                });
+            }
+        });
+    </script>
+</body>
+</html>
