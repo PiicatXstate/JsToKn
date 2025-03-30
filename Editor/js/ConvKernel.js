@@ -237,117 +237,137 @@ function ConvKernel(code){
         {
             "type": "ExpressionStatement",
             "expression": {
-              "type": "CallExpression",
-              "callee": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {
                 "type": "Identifier",
                 "name": "Slip"
-              },
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "up"
                 },
+                "property": {
+                "type": "Identifier",
+                "name": "up"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "arguments": [
                 {
-                  "type": "ArrowFunctionExpression",
-                  "id": null,
-                  "expression": false,
-                  "generator": false,
-                  "async": false,
-                  "params": [],
-                  "body": {
+                "type": "ArrowFunctionExpression",
+                "id": null,
+                "expression": false,
+                "generator": false,
+                "async": false,
+                "params": [],
+                "body": {
                     "type": "BlockStatement",
                     "body": []
-                  }
                 }
-              ],
-              "optional": false
+                }
+            ],
+            "optional": false
             }
         },
         {
             "type": "ExpressionStatement",
             "expression": {
-              "type": "CallExpression",
-              "callee": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {
                 "type": "Identifier",
                 "name": "Slip"
-              },
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "down"
                 },
+                "property": {
+                "type": "Identifier",
+                "name": "down"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "arguments": [
                 {
-                  "type": "ArrowFunctionExpression",
-                  "id": null,
-                  "expression": false,
-                  "generator": false,
-                  "async": false,
-                  "params": [],
-                  "body": {
+                "type": "ArrowFunctionExpression",
+                "id": null,
+                "expression": false,
+                "generator": false,
+                "async": false,
+                "params": [],
+                "body": {
                     "type": "BlockStatement",
                     "body": []
-                  }
                 }
-              ],
-              "optional": false
+                }
+            ],
+            "optional": false
             }
         },
         {
             "type": "ExpressionStatement",
             "expression": {
-              "type": "CallExpression",
-              "callee": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {
                 "type": "Identifier",
                 "name": "Slip"
-              },
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "left"
                 },
+                "property": {
+                "type": "Identifier",
+                "name": "left"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "arguments": [
                 {
-                  "type": "ArrowFunctionExpression",
-                  "id": null,
-                  "expression": false,
-                  "generator": false,
-                  "async": false,
-                  "params": [],
-                  "body": {
+                "type": "ArrowFunctionExpression",
+                "id": null,
+                "expression": false,
+                "generator": false,
+                "async": false,
+                "params": [],
+                "body": {
                     "type": "BlockStatement",
                     "body": []
-                  }
                 }
-              ],
-              "optional": false
+                }
+            ],
+            "optional": false
             }
         },
         {
             "type": "ExpressionStatement",
             "expression": {
-              "type": "CallExpression",
-              "callee": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {
                 "type": "Identifier",
                 "name": "Slip"
-              },
-              "arguments": [
-                {
-                  "type": "Identifier",
-                  "name": "right"
                 },
+                "property": {
+                "type": "Identifier",
+                "name": "right"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "arguments": [
                 {
-                  "type": "ArrowFunctionExpression",
-                  "id": null,
-                  "expression": false,
-                  "generator": false,
-                  "async": false,
-                  "params": [],
-                  "body": {
+                "type": "ArrowFunctionExpression",
+                "id": null,
+                "expression": false,
+                "generator": false,
+                "async": false,
+                "params": [],
+                "body": {
                     "type": "BlockStatement",
                     "body": []
-                  }
                 }
-              ],
-              "optional": false
+                }
+            ],
+            "optional": false
             }
         },
         {
@@ -606,27 +626,6 @@ function ConvKernel(code){
             "expression": {
             "type": "CallExpression",
             "callee": {
-                "type": "MemberExpression",
-                "object": {
-                "type": "Identifier",
-                "name": "screen"
-                },
-                "property": {
-                "type": "Identifier",
-                "name": "effect"
-                },
-                "computed": false,
-                "optional": false
-            },
-            "arguments": [],
-            "optional": false
-            }
-        },
-        {
-            "type": "ExpressionStatement",
-            "expression": {
-            "type": "CallExpression",
-            "callee": {
                 "type": "Identifier",
                 "name": "Clone"
             },
@@ -769,7 +768,35 @@ function ConvKernel(code){
             "arguments": [],
             "optional": false
             }
-        }
+        },
+        {
+            "type": "ExpressionStatement",
+            "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "Keyup"
+            },
+            "arguments": [
+                {
+                "type": "Literal",
+                },
+                {
+                "type": "ArrowFunctionExpression",
+                "id": null,
+                "expression": false,
+                "generator": false,
+                "async": false,
+                "params": [],
+                "body": {
+                    "type": "BlockStatement",
+                    "body": []
+                }
+                }
+            ],
+            "optional": false
+            }
+        },
     ]
     let judge = true;
     let trav,trav2,text,text2,contrast,contrast2;
@@ -825,31 +852,31 @@ function ConvKernel(code){
                 break
             }else if(isMatch(trav,rule[6])){
                 // 当向上滑动屏幕
-                code = removeChars(code,trav["expression"]["arguments"][0]["start"],trav["expression"]["arguments"][0]["end"])
-                code = insertCharacter(code,'"向上"',trav["expression"]["arguments"][0]["start"])
+                code = insertCharacter(code,'"向上",',trav["expression"]["arguments"][0]["start"])
                 code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
                 code = insertCharacter(code,'当滑动屏幕',trav["expression"]["callee"]["start"])
+                console.log(code)
                 break
             }else if(isMatch(trav,rule[7])){
                 // 当向下滑动屏幕
-                code = removeChars(code,trav["expression"]["arguments"][0]["start"],trav["expression"]["arguments"][0]["end"])
-                code = insertCharacter(code,'"向下"',trav["expression"]["arguments"][0]["start"])
+                code = insertCharacter(code,'"向下",',trav["expression"]["arguments"][0]["start"])
                 code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
                 code = insertCharacter(code,'当滑动屏幕',trav["expression"]["callee"]["start"])
+                console.log(code)
                 break
             }else if(isMatch(trav,rule[8])){
                 // 当向左滑动屏幕
-                code = removeChars(code,trav["expression"]["arguments"][0]["start"],trav["expression"]["arguments"][0]["end"])
-                code = insertCharacter(code,'"向左"',trav["expression"]["arguments"][0]["start"])
+                code = insertCharacter(code,'"向左",',trav["expression"]["arguments"][0]["start"])
                 code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
                 code = insertCharacter(code,'当滑动屏幕',trav["expression"]["callee"]["start"])
+                console.log(code)
                 break
             }else if(isMatch(trav,rule[9])){
                 // 当向右滑动屏幕
-                code = removeChars(code,trav["expression"]["arguments"][0]["start"],trav["expression"]["arguments"][0]["end"])
-                code = insertCharacter(code,'"向右"',trav["expression"]["arguments"][0]["start"])
+                code = insertCharacter(code,'"向右",',trav["expression"]["arguments"][0]["start"])
                 code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
                 code = insertCharacter(code,'当滑动屏幕',trav["expression"]["callee"]["start"])
+                console.log(code)
                 break
             }else if(isMatch(trav,rule[10])){
                 // 当按下键盘
@@ -860,13 +887,13 @@ function ConvKernel(code){
                     'Keyup':'放开'
                 }
                 contrast2 = {
-                    'space':'空格键',
-                    'enter':'回车键',
-                    'up':'↑',
-                    'down':'↓',
-                    'left':'←',
-                    'right':'→',
-                    '':'任意键'
+                    'Space':'空格键',
+                    'Enter':'回车键',
+                    'ArrowUp':'↑',
+                    'ArrowDown':'↓',
+                    'ArrowLeft':'←',
+                    'ArrowRight':'→',
+                    'Any':'任意键'
                 }
                 code = removeChars(code,trav["expression"]["arguments"][0]["start"],trav["expression"]["arguments"][0]["end"])
                 code = insertCharacter(code,'"' + contrast[text2] +'","' + (text in contrast2 ? contrast2[text] : text) + '"',trav["expression"]["callee"]["end"]+1)
@@ -946,79 +973,101 @@ function ConvKernel(code){
                 code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
                 code = insertCharacter(code,'重启',trav["expression"]["callee"]["start"])
                 break
+            // }else if(isMatch(trav,rule[23])){
+            //     // 改变切换屏幕的特效
+            //     text = []
+            //     text2 = []
+            //     trav["expression"]['arguments'].forEach(item => {
+            //         text.push(item.value);
+            //     });
+            //     contrast = {
+            //         'up':'向上',
+            //         'down':'向下',
+            //         'left':'向左',
+            //         'right':'向右',
+            //         'move':'移入',
+            //         'bounce':'弹入',
+            //         'appear':'渐显',
+            //         'distort':'扭曲',
+            //         '':'无效果',
+            //     }
+            //     text.forEach(item =>{
+            //         text2.push('"' + contrast[item] + '"')
+            //     })
+            //     code = removeChars(code,trav["expression"]["arguments"][0]["start"],trav["end"]-2)
+            //     code = insertCharacter(code,text2.toString(),trav["expression"]["callee"]["end"]+1)
+            //     code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
+            //     code = insertCharacter(code,'设置切屏特效',trav["expression"]["callee"]["start"])
+            //     break
             }else if(isMatch(trav,rule[23])){
-                // 改变切换屏幕的特效
-                text = []
-                text2 = []
-                trav["expression"]['arguments'].forEach(item => {
-                    text.push(item.value);
-                });
-                contrast = {
-                    'up':'向上',
-                    'down':'向下',
-                    'left':'向左',
-                    'right':'向右',
-                    'move':'移入',
-                    'bounce':'弹入',
-                    'appear':'渐显',
-                    'distort':'扭曲',
-                    '':'无效果',
-                }
-                text.forEach(item =>{
-                    text2.push('"' + contrast[item] + '"')
-                })
-                code = removeChars(code,trav["expression"]["arguments"][0]["start"],trav["end"]-2)
-                code = insertCharacter(code,text2.toString(),trav["expression"]["callee"]["end"]+1)
-                code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
-                code = insertCharacter(code,'设置切屏特效',trav["expression"]["callee"]["start"])
-                break
-            }else if(isMatch(trav,rule[24])){
                 // 当克隆体启动时
                 code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
                 code = insertCharacter(code,'当克隆体启动',trav["expression"]["callee"]["start"])
                 break
-            }else if(isMatch(trav,rule[25])){
+            }else if(isMatch(trav,rule[24])){
                 // 克隆角色
                 text = code.substring(trav["expression"]["callee"]["start"],trav["expression"]["callee"]["property"]["start"]-1)
                 code = insertCharacter(code,text,trav["expression"]["callee"]["end"]+1)
                 code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
                 code = insertCharacter(code,'克隆',trav["expression"]["callee"]["start"])
                 break
-            }else if(isMatch(trav,rule[26])){
+            }else if(isMatch(trav,rule[25])){
                 // 删除本克隆角色
                 code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
                 code = insertCharacter(code,'删除本克隆体',trav["expression"]["callee"]["start"])
                 break
-            }else if(isMatch(trav,rule[27])){
+            }else if(isMatch(trav,rule[26])){
                 // 克隆体编号
                 code = removeChars(code,trav["start"],trav["end"])
                 code = insertCharacter(code,'克隆体编号()',trav["start"])
                 break
-            }else if(isMatch(trav,rule[28])){
+            }else if(isMatch(trav,rule[27])){
                 // 角色克隆体总数
                 text = code.substring(trav["object"]["object"]["start"],trav["object"]["object"]["end"])
-                code = removeChars(code,trav["start"],trav["end"])
-                code = insertCharacter(code,'克隆体编号(' + text +')',trav["start"])
+                code = removeChars(code,trav["start"],trav["end"]+2)
+                code = insertCharacter(code,'克隆体总数(' + text +')',trav["start"])
                 break
-            }else if(isMatch(trav,rule[29])){
+            }else if(isMatch(trav,rule[28])){
                 // 退出循环
                 code = removeChars(code,trav["start"],trav["end"])
                 code = insertCharacter(code,'退出循环()',trav["start"])
                 break
-            }else if(isMatch(trav,rule[30])){
+            }else if(isMatch(trav,rule[29])){
                 // 等待直到
                 code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
                 code = insertCharacter(code,'等待直到',trav["expression"]["callee"]["start"])
                 break
-            }else if(isMatch(trav,rule[31])){
+            }else if(isMatch(trav,rule[30])){
                 // 一步执行
                 code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
                 code = insertCharacter(code,'一步执行',trav["expression"]["callee"]["start"])
                 break
-            }else if(isMatch(trav,rule[32])){
+            }else if(isMatch(trav,rule[31])){
                 // 移动步数
                 code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
                 code = insertCharacter(code,'移动步数',trav["expression"]["callee"]["start"])
+                break
+            }else if(isMatch(trav,rule[32])){
+                // 当放开键盘
+                text = trav["expression"]["arguments"][0]['value']
+                text2 = trav["expression"]["callee"]["name"]
+                contrast = {
+                    'Keydown':'按下',
+                    'Keyup':'放开'
+                }
+                contrast2 = {
+                    'Space':'空格键',
+                    'Enter':'回车键',
+                    'ArrowUp':'↑',
+                    'ArrowDown':'↓',
+                    'ArrowLeft':'←',
+                    'ArrowRight':'→',
+                    'Any':'任意键'
+                }
+                code = removeChars(code,trav["expression"]["arguments"][0]["start"],trav["expression"]["arguments"][0]["end"])
+                code = insertCharacter(code,'"' + contrast[text2] +'","' + (text in contrast2 ? contrast2[text] : text) + '"',trav["expression"]["callee"]["end"]+1)
+                code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
+                code = insertCharacter(code,'当键盘触发',trav["expression"]["callee"]["start"])
                 break
             }else{
                 trav2 += 1

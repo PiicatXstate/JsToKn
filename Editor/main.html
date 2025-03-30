@@ -16,11 +16,16 @@
         }
         .codediv{
             position: absolute;
-            border: 0px solid rgb(41, 40, 40);
-            background-color: rgb(19, 19, 19);
+            border: 1px solid #141920;
+            background-color: #0a1523;
             border-radius: 10px;
             overflow: hidden;
             resize: both;
+        }
+        .codediv::-webkit-resizer {
+            background-color: transparent; /* 完全透明 */
+            border-left: 8px solid rgba(0,0,0,0.2); /* 半透明三角形替代方案 */
+            border-top: 8px solid rgba(0,0,0,0.2);
         }
         .threader:active {
             cursor: grabbing; 
@@ -30,21 +35,20 @@
         }
         .threader{
             position: absolute;
-            left: 10px;
-            top: 4px;
-            width: 155px;
+            left: 9px;
+            top: 3px;
+            width: 130px;
             -webkit-user-drag: none;
+            opacity: 0.6;
         }
         .code{
             position: absolute;
-            width: calc(100% - 24px);
-            height: calc(100% - 52px);
+            width: calc(100%);
+            height: calc(100% - 33px);
             background-color: black;
-            border: 2px solid rgb(41, 40, 40);
-            border-radius: 10px;
-            top: 40px;
-            left: 12px;
-            overflow: hidden;
+            border: px solid #313336;
+            top: 33px;
+            left:-0.5px;
         }
         .menu{
             position: absolute;
@@ -79,12 +83,12 @@
 
 
 
-    <script src="js/codemirror.js"></script>
-	<script src="js/javascript.js"></script>
+    <script src="../build/codemirror/codemirror.js"></script>
+	<script src="../build/codemirror/javascript.js"></script>
 	<script src="js/InterCore.js"></script>
 	<script src="js/ConvKernel.js"></script>
-    <script src="js/acorn.min.js"></script>
-    <script src="js/astring.min.js"></script>
+    <script src="../build/acorn/acorn.min.js"></script>
+    <script src="../build/acorn/astring.min.js"></script>
     <script>
         // 随机数生成
         function generateRandomString(length = 10) {

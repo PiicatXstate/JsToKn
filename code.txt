@@ -1,0 +1,113 @@
+当开始运行
+    Start(()=>{})
+
+打印
+    console.log()
+
+等待秒数
+    wait()
+
+当点击角色
+    sprite.onclick(()=>{})
+
+当按下角色
+    sprite.mousedown(()=>{})
+
+当放开角色
+    sprite.mouseup(()=>{})
+
+当向某个方向滑动屏幕
+    Slip.up(()=>{})
+    Slip.down(()=>{})
+    Slip.left(()=>{})
+    Slip.right(()=>{})
+
+当按下键盘按键
+    Keydown(key: string | number | 'Any' | 'Enter' | 'Space' | 'ArrowDown' | 'ArrowUp' | 'ArrowLeft' | 'ArrowRight',()=>{})
+
+当放开键盘按键
+    Keyup(key: string | number | 'Any' | 'Enter' | 'Space' | 'ArrowDown' | 'ArrowUp' | 'ArrowLeft' | 'ArrowRight',()=>{})
+        key:
+            string 键盘任意字母按键 大小写
+            number 键盘任意数字
+            'Any' 任意键
+            'Enter' 回车键
+            'Space' 空格键
+            'ArrowUp' 箭头上键
+            'ArrowDown' 箭头下键
+            'ArrowLeft' 箭头左键
+            'ArrowRight' 箭头右键
+        
+当自己碰到另一个角色
+    sprite.collide(state: 'start' | 'end' | 'keep',()=>{})
+        state:
+            start 开始
+            end 结束
+            keep 持续
+
+当条件满足时触发
+    Trip(trip,()=>{})
+
+收到广播
+    Cast(castname: string,()=>{})
+
+收到广播带参数
+    Cast(castname: string,castParam=>{})
+
+发送广播
+    cast(castname: string)
+
+发送广播带参数
+    cast(castname: string,castParam: string)
+
+发生广播并等待
+    castwait(castname: string)
+
+是否收到广播
+    cast.judge(castname: string)
+
+广播内容变量
+    castParam
+
+切换到屏幕
+    screen(screenname: string)
+
+停止脚本
+    stop(type: number)
+        type:
+            0 全部脚本
+            1 当前脚本
+            2 当前角色的其它脚本
+            3 其它角色的脚本
+
+重启屏幕
+    restart()
+
+当克隆体启动
+    Clone(()=>{})
+
+克隆某角色
+    sprite.clone()
+
+删除本克隆体
+    clone.delete()
+
+当前角色克隆体编号
+    clone.num
+
+角色克隆体总数
+    sprite.clone.num()
+
+退出循环
+    break
+
+等待直到
+    waituntil(trip)
+
+一步执行
+    step(()=>{})
+
+移动步数
+    move(step: number)
+
+移动到

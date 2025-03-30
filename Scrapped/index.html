@@ -1,53 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<link rel="stylesheet" href="codemirror.css">
-		<link rel="stylesheet" href="material.css">
-		<title>Editor</title>
-		<style>
-			html, body {
-			    margin: 0;
-			    padding: 0;
-			    width: 100%;
-			    height: 100%;
-			    overflow: hidden;
-			}
-			textarea {
-				width: 100%;
-			    height: 100%;
-			}
-		</style>
-	</head>
-	<body>
-		<div style="width: 100%;height: 100%;" id="block">
-			<textarea id="text"></textarea>
-		</div>
-	</body>
-	<script src="codemirror.js"></script>
-	<script src="javascript.js"></script>
-	<script src="InterCore.js"></script>
-	<script src="ConvKernel.js"></script>
-	<script type="module" >
-		// 加载JSON
-		fetch('./convert.json')
-		.then((response) => response.json())
-		.then((json) => window.localStorage.setItem("json",JSON.stringify(json)));
-		let convert = window.localStorage.getItem("json");
-		convert = JSON.parse(convert);
+<html>
+<head>
+    <title>JS AST 在线解析器</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        #editorContainer, #output {
+            flex: 1;
+            height: calc(100vh - 40px);
+            margin: 0 10px;
+        }
+        #editor {
+            width: 100%;
+            height: 100%;
+            border: 2px solid #ccc;
+            font-family: monospace;
+        }
+        #output {
+            white-space: pre-wrap;
+            font-family: monospace;
+            overflow: auto;
+            padding: 10px;
+            border: 2px solid #ccc;
+            background: #f8f8f8;
+        }
+    </style>
+    <link rel="stylesheet" href="../editor/css/codemirror.css">
+    <script src="../build/codemirror/codemirror.js"></script>
+    <script src="./build/codemirror/javascript.min.js"></script>
+    <script src="../build/acorn/acorn.min.js"></script>
+</head>
+<body>
+    <div id="editorContainer">
+        <textarea id="editor"></textarea>
+    </div>
+    
+    <div id="output"></div>
 
-		// 创建Editor
-		var myTextArea = document.getElementById('text');
-		var editor = CodeMirror.fromTextArea(myTextArea, {
-		    lineNumbers: true,
-		    mode: 'javascript',
-		    theme: 'material'
-		});
-		editor.on('change', () => {
-			var data = editor.getValue().split('\n');
-			console.log(interLua(data));
-		});
-	</script>
+    <script>
+        const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+            mode: 'javascript',
+            lineNumbers: true,
+            theme: 'default',
+            viewportMargin: Infinity,
+            value: '// 输入 JavaScript 代码...\nfunction example() {\n  return "Hello World";\n}'
+        });
+
+        const output = document.getElementById('output');
+        
+        function parseCode() {
+            const code = editor.getValue();
+            try {
+                const ast = acorn.parse(code, {
+                    ecmaVersion: 2022,
+                    locations: false
+                });
+                output.textContent = JSON.stringify(ast['body'][0],null,2);
+            } catch (error) {
+                output.textContent = `解析错误: ${error.message}`;
+            }
+        }
+
+        let timeout;
+        editor.on('change', () => {
+            clearTimeout(timeout);
+            timeout = setTimeout(parseCode, 500);
+        });
+
+        parseCode();
+    </script>
+</body>
 </html>
