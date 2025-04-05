@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开发工具</title>
+    <link rel="stylesheet" href="../editor/css/codemirror.css">
+    <link rel="stylesheet" href="../editor/css/material.css">
+    <style>
+        body{
+            margin: 0px;
+            overflow: hidden;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+            background: #0a1523;
+            gap: 10px;
+            padding: 10px;
+            font-family: 'consolas';
+            font-size:15px;
+            padding: 10px;
+        }
+        .left-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .right-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .editor-container {
+            position: relative;
+            border: 1px solid #141920;
+            border-radius: 10px;
+            background: #0a1523;
+            height: 30%;
+            overflow: hidden;
+        }
+        .result-container {
+            background: #1a2332;
+            border: 1px solid #2d3b4d;
+            border-radius: 10px;
+            padding: 10px;
+            color: #bcdbff;
+            height: 45%;
+            overflow: auto;
+        }
+        .threader {
+            position: absolute;
+            left: 9px;
+            top: 3px;
+            width: 130px;
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-column">
+            <div class="editor-container">
+                <div class="threader"></div>
+                <textarea id="editor1"></textarea>
+            </div>
+            <div class="editor-container">
+                <div class="threader"></div>
+                <textarea id="editor2"></textarea>
+            </div>
+            <div class="editor-container">
+                <div class="threader"></div>
+                <textarea id="editor3"></textarea>
+            </div>
+        </div>
+        
+        <div class="right-column">
+            <div class="result-container" id="result1">
+            </div>
+            <div class="result-container" id="result2">
+            </div>
+        </div>
+    </div>
+
+    <script src="../build/codemirror/codemirror.js"></script>
+    <script src="../build/codemirror/javascript.js"></script>
+    <script src="../build/acorn/acorn.min.js"></script>
+    <script src="../build/acorn/astring.min.js"></script>
+    <script src="../build/json-veiwer/jsonVeiwer.js"></script>
+    <script>
+        // 关键函数
+        function collectTypeObjects(ast) {
+            const result = [];
+            
+            function traverse(value) {
+                if (typeof value === 'object' && value !== null) {
+                    if (Array.isArray(value)) {
+                        for (const item of value) {
+                            traverse(item);
+                        }
+                    } else {
+                        if ('type' in value) {
+                            result.push(value);
+                        }
+                        // 递归遍历所有属性值
+                        for (const key in value) {
+                            traverse(value[key]);
+                        }
+                    }
+                }
+            }
+            
+            traverse(ast);
+            return result;
+        }
+
+
+        function isMatch(original, rules) {
+            function checkObject(originalObj, ruleObj) {
+                for (const key in ruleObj) {
+                    if (!originalObj.hasOwnProperty(key)) return false
+                    if (!checkValue(originalObj[key], ruleObj[key])) return false
+                }
+                return true
+            }
+        
+            function checkValue(originalVal, ruleVal) {
+                if (ruleVal === null) return originalVal === null
+                if (originalVal === null) return false
+                if (typeof ruleVal !== typeof originalVal) return false
+                if (Array.isArray(ruleVal)) {
+                    if (!Array.isArray(originalVal)) return false
+                    return checkArray(originalVal, ruleVal)
+                }
+                if (typeof ruleVal === 'object') {
+                    return checkObject(originalVal, ruleVal)
+                }
+        
+                return originalVal === ruleVal
+            }
+        
+            function checkArray(originalArr, ruleArr) {
+                if (ruleArr.length > originalArr.length) return false
+            
+                const originalCopy = [...originalArr]
+            
+                for (const ruleItem of ruleArr) {
+                    const foundIndex = originalCopy.findIndex(originalItem => 
+                        checkValue(originalItem, ruleItem)
+                    )
+                
+                    if (foundIndex === -1) return false
+                    originalCopy.splice(foundIndex, 1)
+                }
+                return true
+            }
+        
+            return checkObject(original, rules)
+        }
+
+
+        function insertCharacter(str, char, index) {
+            return str.substring(0, index) + char + str.substring(index);
+        }
+
+        function removeChars(str, n, m) {
+            n = Math.max(0, parseInt(n, 10) || 0);
+            m = (parseInt(m, 10) || 0)-1;
+            if (n > m) [n, m] = [m, n];
+            if (m >= str.length) m = str.length - 1;
+            return str.slice(0, n) + str.slice(m + 1);
+        }
+
+
+
+        // 初始化三个编辑器
+        const editors = [
+            CodeMirror.fromTextArea(document.getElementById('editor1'), {
+                lineNumbers: true,
+                mode: 'javascript',
+                theme: 'material',
+                lineWrapping: true
+            }),
+            CodeMirror.fromTextArea(document.getElementById('editor2'), {
+                lineNumbers: true,
+                mode: 'javascript',
+                theme: 'material',
+                lineWrapping: true,
+            }),
+            CodeMirror.fromTextArea(document.getElementById('editor3'), {
+                lineNumbers: true,
+                mode: 'javascript',
+                theme: 'material',
+                lineWrapping: true
+            })
+        ];
+
+        editors[0].on('change', () => {
+            let code = editors[0].getValue();
+            // 对于第一个编辑器，只解析并显示AST
+            const output = document.getElementById('result1');
+            try {
+                const ast = acorn.parse(code, {
+                    ecmaVersion: 2022,
+                    locations: false
+                });
+                let ast2 = ast['body'][0]
+                const viewer = new JSONViewer({
+                    container: '#result1', 
+                    expandDepth: 1
+                });
+                viewer.show(ast2);
+
+                // 检查第二个编辑器是否符合JSON格式
+                try {
+                    const rule = JSON.parse(editors[1].getValue());
+
+                    // 实际运行第三编辑器的代码
+                    const codeToRun = editors[2].getValue();
+                    let judge = true;
+                    let trav,trav2,text,text2,contrast,contrast2;
+                    let ast = acorn.parse(code, {
+                        ecmaVersion: 2022,
+                        locations: false
+                    });
+                    code = astring.generate(ast).split("\n").join("");
+                    while(judge){
+                        ast = acorn.parse(code,{
+                            ecmaVersion: 2022,
+                            locations: false
+                        });
+                        ast = collectTypeObjects(ast)
+                        trav2 = 0
+                        for(trav of ast){
+                            if(isMatch(trav,rule)){
+                                eval(codeToRun)
+                                break
+                            }else{
+                                trav2 += 1
+                            }
+                        }
+                        if(trav2 == ast.length){
+                            judge = false
+                        }
+                    }
+
+                    // 显示结果
+                    document.getElementById('result2').innerHTML = `<pre>${code}</pre>`;
+                } catch (error) {
+                    document.querySelectorAll('.result-container pre')[1].innerHTML = `<span style="color: #ff6188">✗ JSON格式错误：${error.message}</span>`;
+                }
+            } catch (error) {
+                output.textContent = `解析错误: ${error.message}`;
+            }
+
+        });
+
+    </script>
+</body>
+</html>

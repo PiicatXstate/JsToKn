@@ -6,13 +6,6 @@
     'use strict';
 
     const defaultStyles = `
-        .json-viewer {
-            font-family: 'consolas';
-            font-size:13px;
-            padding: 10px;
-            background: #f5f5f5;
-            border-radius: 4px;
-        }
         .json-key { color: #92278f; }
         .json-string { color: #3ab54a; }
         .json-number { color: #25aae2; }
@@ -23,8 +16,8 @@
             margin-right: 6px;
             display: inline-block;
             width: 10px;
-            color: rgba(0,0,0,0.2);
-            font-size: 8px;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 9px;
             font-family: '';
         }
         .json-collapsed { color: #666; }

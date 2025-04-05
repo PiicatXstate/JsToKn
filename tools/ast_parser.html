@@ -60,7 +60,7 @@
                     ecmaVersion: 2022,
                     locations: false
                 });
-                output.textContent = JSON.stringify(ast['body'][0],null,2);
+                output.textContent = JSON.stringify(ast,null,2);
             } catch (error) {
                 output.textContent = `解析错误: ${error.message}`;
             }
