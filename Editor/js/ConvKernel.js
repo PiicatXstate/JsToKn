@@ -80,6 +80,30 @@ function removeChars(str, n, m) {
     return str.slice(0, n) + str.slice(m + 1);
 }
 
+class CodeReplacer {
+    constructor(originalCode) {
+        this.code = originalCode;
+    }
+
+    // 封装字符串插入和删除操作
+    insert(char, start) {
+        this.code = this.code.substring(0, start) + char + this.code.substring(start);
+        return this;
+    }
+
+    remove(start, end) {
+        end --;
+        start = Math.max(0, start);
+        end = Math.min(end, this.code.length - 1);
+        if (start > end) [start, end] = [end, start];
+        this.code = this.code.slice(0, start) + this.code.slice(end + 1);
+        return this;
+    }
+
+    getCode() {
+        return this.code;
+    }
+}
 
 function ConvKernel(code){
     // 格式化代码
@@ -798,6 +822,7 @@ function ConvKernel(code){
             }
         },
     ]
+    const replacer = new CodeReplacer(code);
     let judge = true;
     let trav,trav2,text,text2,contrast,contrast2;
     let ast = acorn.parse(code, {
@@ -806,6 +831,7 @@ function ConvKernel(code){
     });
     code = astring.generate(ast).split("\n").join("");
     while(judge){
+        code = replacer.getCode();
         ast = acorn.parse(code,{
             ecmaVersion: 2022,
             locations: false
@@ -813,21 +839,23 @@ function ConvKernel(code){
         ast = collectTypeObjects(ast)
         trav2 = 0
         for(trav of ast){
-            console.log(rule[31])
             if(isMatch(trav,rule[0])){
                 // 当开始运行
-                code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
-                code = insertCharacter(code,'当开始运行',trav["expression"]["callee"]["start"])
-                break
+                const { start, end } = trav.expression.callee;
+                replacer.remove(start, end);
+                replacer.insert('当开始运行', start);
+                break;
             }else if(isMatch(trav,rule[1])){
                 // 打印
-                code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
-                code = insertCharacter(code,'打印',trav["expression"]["callee"]["start"])
+                const { start, end } = trav.expression.callee;
+                replacer.remove(start, end);
+                replacer.insert('打印', start);
                 break
             }else if(isMatch(trav,rule[2])){
                 // 等待秒数
-                code = removeChars(code,trav["expression"]["callee"]["start"],trav["expression"]["callee"]["end"])
-                code = insertCharacter(code,'等待秒数',trav["expression"]["callee"]["start"])
+                const { start, end } = trav.expression.callee;
+                replacer.remove(start, end);
+                replacer.insert('等待秒数', start);
                 break
             }else if(isMatch(trav,rule[3])){
                 // 当点击角色
