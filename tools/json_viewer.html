@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Viewer Example</title>
+    <script src="../build/json-viewer.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+    <!-- 页面中 -->
+<div id="json-container"></div>
+
+<!-- 引入库 -->
+<script src="../build/json-veiwer/jsonVeiwer.js"></script>
+
+<script>
+    // 初始化
+    const viewer = new JSONViewer({
+        container: '#json-container', // 容器选择器
+        expandDepth: 1                // 默认展开层级
+    });
+
+    // 显示数据
+    const data = {
+        name: "John",
+        age: 30,
+        active: true,
+        hobbies: ["sports", "music"],
+        address: {
+            street: ["Main St"],
+            city: "New York"
+        }
+    };
+
+    viewer.show(data);
+</script>
+</body>
+</html>
