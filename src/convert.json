@@ -1,0 +1,714 @@
+const rule = 
+[
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "Start"
+            },
+            "arguments": [
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement"
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {
+                    "type": "Identifier",
+                    "name": "console"
+                },
+                "property": {
+                    "type": "Identifier",
+                    "name": "log"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "wait"
+            },
+            "arguments": [],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {},
+                "property": {
+                    "type": "Identifier",
+                    "name": "onclick"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "arguments": [
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": []
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {},
+                "property": {
+                    "type": "Identifier",
+                    "name": "mousedown"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "arguments": [
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": []
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {},
+                "property": {
+                    "type": "Identifier",
+                    "name": "mouseup"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "arguments": [
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": []
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {
+                    "type": "Identifier",
+                    "name": "Slip"
+                },
+                "property": {
+                    "type": "Identifier",
+                    "name": "up"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "arguments": [
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": []
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {
+                    "type": "Identifier",
+                    "name": "Slip"
+                },
+                "property": {
+                    "type": "Identifier",
+                    "name": "down"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "arguments": [
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": []
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {
+                    "type": "Identifier",
+                    "name": "Slip"
+                },
+                "property": {
+                    "type": "Identifier",
+                    "name": "left"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "arguments": [
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": []
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {
+                    "type": "Identifier",
+                    "name": "Slip"
+                },
+                "property": {
+                    "type": "Identifier",
+                    "name": "right"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "arguments": [
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": []
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "Keydown"
+            },
+            "arguments": [
+                {
+                    "type": "Literal"
+                },
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": []
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {},
+                "property": {
+                    "type": "Identifier",
+                    "name": "collide"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "arguments": [
+                {
+                    "type": "Literal"
+                },
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": []
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "Trig"
+            },
+            "arguments": [
+                {},
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": []
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "Cast"
+            },
+            "arguments": [
+                {
+                    "type": "Literal"
+                },
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [
+                        {
+                            "type": "Identifier",
+                            "name": "castParam"
+                        }
+                    ],
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": []
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "Cast"
+            },
+            "arguments": [
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": []
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "cast"
+            },
+            "arguments": [
+                {
+                    "type": "Literal"
+                },
+                {
+                    "type": "Literal"
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "cast"
+            },
+            "arguments": [],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "castwait"
+            },
+            "arguments": [],
+            "optional": false
+        }
+    },
+    {
+        "type": "MemberExpression",
+        "object": {
+            "type": "Identifier",
+            "name": "cast"
+        },
+        "property": {
+            "type": "Identifier",
+            "name": "judge"
+        },
+        "computed": false,
+        "optional": false
+    },
+    {
+        "type": "Identifier",
+        "name": "castParam"
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "screen"
+            },
+            "arguments": [
+                {
+                    "type": "Literal"
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "stop"
+            },
+            "arguments": [
+                {
+                    "type": "Literal"
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "restart"
+            },
+            "arguments": [],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "Clone"
+            },
+            "arguments": [
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": []
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {},
+                "property": {
+                    "type": "Identifier",
+                    "name": "clone"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "arguments": [],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "MemberExpression",
+                "object": {
+                    "type": "Identifier",
+                    "name": "clone"
+                },
+                "property": {
+                    "type": "Identifier",
+                    "name": "delete"
+                },
+                "computed": false,
+                "optional": false
+            },
+            "arguments": [],
+            "optional": false
+        }
+    },
+    {
+        "type": "MemberExpression",
+        "object": {
+            "type": "Identifier",
+            "name": "clone"
+        },
+        "property": {
+            "type": "Identifier",
+            "name": "num"
+        },
+        "computed": false,
+        "optional": false
+    },
+    {
+        "type": "MemberExpression",
+        "object": {
+            "type": "MemberExpression",
+            "object": {},
+            "property": {
+                "type": "Identifier",
+                "name": "clone"
+            },
+            "computed": false,
+            "optional": false
+        },
+        "property": {
+            "type": "Identifier",
+            "name": "num"
+        },
+        "computed": false,
+        "optional": false
+    },
+    {
+        "type": "BreakStatement",
+        "label": null
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "waituntil"
+            },
+            "arguments": [],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "step"
+            },
+            "arguments": [
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement"
+                    }
+                }
+            ],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "move"
+            },
+            "arguments": [],
+            "optional": false
+        }
+    },
+    {
+        "type": "ExpressionStatement",
+        "expression": {
+            "type": "CallExpression",
+            "callee": {
+                "type": "Identifier",
+                "name": "Keyup"
+            },
+            "arguments": [
+                {
+                    "type": "Literal"
+                },
+                {
+                    "type": "ArrowFunctionExpression",
+                    "id": null,
+                    "expression": false,
+                    "generator": false,
+                    "async": false,
+                    "params": [],
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": []
+                    }
+                }
+            ],
+            "optional": false
+        }
+    }
+]

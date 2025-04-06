@@ -176,7 +176,30 @@
             return str.slice(0, n) + str.slice(m + 1);
         }
 
+        class CodeReplacer {
+            constructor(originalCode) {
+                this.code = originalCode;
+            }
 
+            // 封装字符串插入和删除操作
+            insert(char, start) {
+                this.code = this.code.substring(0, start) + char + this.code.substring(start);
+                return this;
+            }
+
+            remove(start, end) {
+                end --;
+                start = Math.max(0, start);
+                end = Math.min(end, this.code.length - 1);
+                if (start > end) [start, end] = [end, start];
+                this.code = this.code.slice(0, start) + this.code.slice(end + 1);
+                return this;
+            }
+
+            getCode() {
+                return this.code;
+            }
+        }
 
         // 初始化三个编辑器
         const editors = [
@@ -221,6 +244,8 @@
                     const rule = JSON.parse(editors[1].getValue());
 
                     // 实际运行第三编辑器的代码
+                    const replacer = new CodeReplacer(code);
+
                     const codeToRun = editors[2].getValue();
                     let judge = true;
                     let trav,trav2,text,text2,contrast,contrast2;
@@ -230,6 +255,7 @@
                     });
                     code = astring.generate(ast).split("\n").join("");
                     while(judge){
+                        code = replacer.getCode();
                         ast = acorn.parse(code,{
                             ecmaVersion: 2022,
                             locations: false
@@ -250,7 +276,7 @@
                     }
 
                     // 显示结果
-                    document.getElementById('result2').innerHTML = `<pre>${code}</pre>`;
+                    document.getElementById('result2').innerHTML = `<pre>${replacer.getCode()}</pre>`;
                 } catch (error) {
                     document.querySelectorAll('.result-container pre')[1].innerHTML = `<span style="color: #ff6188">✗ JSON格式错误：${error.message}</span>`;
                 }
